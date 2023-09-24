@@ -1,0 +1,20 @@
+<menu>
+    <Services>
+        <Unbound VisibleName="DNS (Unbound DNS)" order="110">
+            <General order="10" url="/ui/unbound/general"/>
+            <Overrides order="20" url="/ui/unbound/overrides"/>
+            <Advanced order="30" url="/ui/unbound/advanced"/>
+            <ACL VisibleName="Access Lists" order="40" url="/ui/unbound/acl"/>
+            <Blocklist order="50" url="/ui/unbound/dnsbl/index"/>
+            <Forward VisibleName="Query Forwarding" order="60" url="/ui/unbound/forward"/>
+            <Dot VisibleName="DNS over TLS" order="70" url="/ui/unbound/dot"/>
+            <Statistics order="90" url="/ui/unbound/stats"/>
+            
+        </Unbound>
+    </Services>
+      <ReportsandLogs>
+    <LogFiles>
+      <UnboundDNSLogFiles VisibleName="Unbound DNS Log File" order="160" url="/ui/diagnostics/log/core/resolver"/>
+    </LogFiles>
+  </ReportsandLogs>
+</menu>

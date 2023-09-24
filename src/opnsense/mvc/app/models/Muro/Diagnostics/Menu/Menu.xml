@@ -1,0 +1,25 @@
+<menu>
+    <ReportsandLogs>
+    <Reports>
+        <Health url="/ui/diagnostics/systemhealth" />
+        <Insight url="/ui/diagnostics/networkinsight" />
+        <NetFlow url="/ui/diagnostics/netflow" />
+    </Reports>
+    </ReportsandLogs>
+    <System>
+        <Diagnostics>
+            <Activity url="/ui/diagnostics/activity" />
+            <Statistics url="/ui/diagnostics/system/memory" />
+        </Diagnostics>
+        <Routes>
+            <Status order="20" url="/ui/diagnostics/interface/routes"/>
+        </Routes>
+    </System>
+    <!-- <Interfaces>
+        <Diagnostics>
+            <ARPTable VisibleName="ARP Table" url="/ui/diagnostics/interface/arp"/>
+            <NDPTable VisibleName="NDP Table" url="/ui/diagnostics/interface/ndp"/>
+            <Netstat VisibleName="Netstat" url="/ui/diagnostics/interface/netstat"/>
+        </Diagnostics>
+    </Interfaces> -->
+</menu>

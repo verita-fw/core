@@ -1,0 +1,213 @@
+#!/usr/local/bin/php
+<?php
+
+/*
+ * Copyright (C) 2019 Deciso B.V.
+ * Copyright (C) 2019-2023 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2017 Alexander Shursha <kekek2@ya.ru>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+require_once 'config.inc';
+require_once 'util.inc';
+require_once 'system.inc';
+require_once 'interfaces.inc';
+require_once 'filter.inc';
+require_once 'auth.inc';
+
+/**
+ * retrieve config property by path (e.g. system.firmware), return simple type or json
+ */
+function get_config_prop($path, $cnf = null)
+{
+    global $config;
+
+    $cnf = $cnf === null ? $config : $cnf;
+    $path = !is_array($path) ? explode('.', $path) : $path;
+    $node_name = array_shift($path);
+
+    if (isset($cnf[$node_name])) {
+        if (!empty($path)) {
+            return get_config_prop($path, $cnf[$node_name]);
+        } else {
+            $content = $cnf[$node_name];
+            if (is_array($content)) {
+                return json_encode($content, true);
+            } else {
+                return $content;
+            }
+        }
+    } else {
+        return null;
+    }
+}
+
+function get_all_services($name = '', $id = '')
+{
+    $services = [];
+
+    foreach (plugins_services() as $service) {
+        /* fail if name filter does not match */
+        if ($name != '' && $service['name'] != $name) {
+            continue;
+        }
+
+        /* fail if ID lookup is not possible or does not match */
+        if ($id !== '' && (!array_key_exists('id', $service) || $service['id'] != $id)) {
+            continue;
+        }
+
+        /* fetch status so the caller does not have to */
+        $service['status'] = service_message($service);
+
+        /* collect all matches contrary to what service_by_name() is doing */
+        $services[] = $service;
+    }
+
+    return $services;
+}
+
+$opts = getopt('cDdghIirSs', [], $optind);
+$args = array_slice($argv, $optind);
+
+if (isset($opts['h'])) {
+    echo "Usage: pluginctl [-c | -D | -d | -g | -h | -I | -i | -r | -S | -s] ...\n\n";
+    echo "\t-c configure mode (default), executes plugin [_configure] hook\n";
+    echo "\t-D ifconfig mode, lists available devices\n";
+    echo "\t-d device mode, lists registered devices\n";
+    echo "\t-g get config property (raw, e.g. system.firmware.plugins)\n";
+    echo "\t-h show this help text and exit\n";
+    echo "\t-I information mode, lists registered device statistics\n";
+    echo "\t-i invoke dynamic interface registration\n";
+    echo "\t-r run mode (e.g. command)\n";
+    echo "\t-S service metadata dump\n";
+    echo "\t-s service mode (e.g. myservice restart)\n";
+    echo "\nWithout arguments, a list of plugins of the requested type is shown.\n";
+} elseif (isset($opts['D'])) {
+    echo json_encode(legacy_interfaces_details($args[0] ?? null), JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) . PHP_EOL;
+} elseif (isset($opts['d'])) {
+    foreach (plugins_devices() as $device) {
+        if (empty($device['type'])) {
+            continue;
+        }
+        if (empty($args[0])) {
+            echo $device['type'] . PHP_EOL;
+        } elseif ($args[0] == $device['type']) {
+            foreach (array_keys($device['names']) as $name) {
+                echo $name . PHP_EOL;
+            }
+        } elseif (in_array($args[0], array_keys($device['names']))) {
+            if (!empty($device['function'])) {
+                echo "Reconfiguring {$args[0]}...";
+                flush();
+                call_user_func_array($device['function'], [$args[0]]);
+                echo "done.\n";
+            } else {
+                echo "Device {$args[0]} cannot be reconfigured\n";
+                exit (1);
+            }
+        }
+    }
+} elseif (isset($opts['g'])) {
+   echo get_config_prop($args[0]) . PHP_EOL;
+} elseif (isset($opts['i'])) {
+    if (plugins_interfaces()) {
+        write_config('Updated plugin interface configuration');
+    }
+} elseif (isset($opts['I'])) {
+    echo json_encode(legacy_interface_stats($args[0] ?? null), JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) . PHP_EOL;
+} elseif (isset($opts['r'])) {
+   $cmd = array_shift($args);
+   $result = plugins_run($cmd, $args);
+   if (!empty($result)) {
+      echo json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) . PHP_EOL;
+   }
+} elseif (isset($opts['S'])) {
+    $services = get_all_services(isset($args[0]) ? $args[0] : '', isset($args[1]) ? $args[1] : '');
+    echo json_encode($services, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) . PHP_EOL;
+} elseif (isset($opts['s'])) {
+    $services = get_all_services(isset($args[0]) ? $args[0] : '', isset($args[2]) ? $args[2] : '');
+    foreach ($services as $service) {
+        $filter = isset($service['id']) ? ['id' => $service['id']] : [];
+        $act = isset($args[1]) ? $args[1] : '';
+        $name = $service['name'];
+
+        switch ($act) {
+            case 'start':
+                echo service_control_start($name, $filter) . PHP_EOL;
+                break;
+            case 'stop':
+                echo service_control_stop($name, $filter) . PHP_EOL;
+                break;
+            case 'restart':
+                echo service_control_restart($name, $filter) . PHP_EOL;
+                break;
+            case 'status':
+                echo htmlspecialchars($service['status']) . PHP_EOL;
+                break;
+            case 'status':
+                echo "Missing command\n";
+                break;
+            default:
+                echo "Unknown command `$act'\n";
+                break;
+        }
+    }
+} elseif (empty($args[0])) {
+    // no arguments, list plugins of selected type
+    $results = [];
+    if (isset($opts['s'])) {
+        foreach (plugins_services() as $service) {
+            $results[$service['name']] = 1;
+        }
+    } else {
+        foreach (plugins_scan() as $name => $path) {
+            try {
+                include_once $path;
+            } catch (\Error $e) {
+                error_log($e);
+            }
+            $func = sprintf('%s_configure', $name);
+            if (function_exists($func)) {
+                foreach ($func() as $when => $worker) {
+                    $results[$when] = 1;
+                }
+            }
+        }
+    }
+
+    $results = array_keys($results);
+    sort($results);
+
+    foreach ($results as $result) {
+        echo "$result\n";
+    }
+} else {
+    /* second argument is hook */
+    $hook = array_shift($args);
+    /* other arguments are passed as is */
+    plugins_configure($hook, true, $args);
+}
+
+exit (0);

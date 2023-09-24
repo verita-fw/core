@@ -1,0 +1,14 @@
+<menu>
+    <Services>
+        <IDS VisibleName="IDPS (Intrusion Detection)" order="10">
+            <Administration order="10" url="/ui/ids" />
+            <Policy order="20" url="/ui/ids/policy" />
+            
+        </IDS>
+    </Services>
+     <ReportsandLogs>
+    <LogFiles>
+      <Log  order="110" VisibleName="Intrusion Detection Log File" url="/ui/diagnostics/log/core/suricata" />
+    </LogFiles>
+  </ReportsandLogs>
+</menu>
