@@ -30,7 +30,7 @@ all:
 
 CORE_MESSAGE?=	Carry on my wayward son
 CORE_NICKNAME?=	Not Yet
-CORE_NAME?=	muro-devel
+CORE_NAME?=	opnsense-devel
 CORE_TYPE?=	development
 
 CORE_ABI?=	21.1
