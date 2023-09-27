@@ -33,7 +33,7 @@ CORE_NICKNAME?=	Not Yet
 CORE_NAME?=	muro-devel
 CORE_TYPE?=	development
 
-CORE_ABI?=	21.1
+CORE_ABI?=	23.7
 CORE_PHP?=	73
 CORE_PYTHON?=	37
 
