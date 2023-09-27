@@ -96,15 +96,15 @@ CORE_REPOSITORY?=	unsupported/${CORE_FLAVOUR:tl}
 .endif
 
 CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} release
-CORE_MAINTAINER?=	project@opnsense.org
+CORE_MAINTAINER?=	info@veritawall.com
 CORE_ORIGIN?=		opnsense/${CORE_NAME}
-CORE_PACKAGESITE?=	https://pkg.opnsense.org
-CORE_PRODUCT?=		OPNsense
-CORE_WWW?=		https://opnsense.org/
+CORE_PACKAGESITE?=	https://pkg.veritawall.com
+CORE_PRODUCT?=		Muro
+CORE_WWW?=		https://veritawall.com/
 
-CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
-CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
-CORE_COPYRIGHT_YEARS?=	2014-2021
+CORE_COPYRIGHT_HOLDER?=	Veritawall Technologies
+CORE_COPYRIGHT_WWW?=	https://www.veritawall.com
+CORE_COPYRIGHT_YEARS?=	2023-2024
 
 CORE_DEPENDS_amd64?=	beep \
 			suricata-devel
