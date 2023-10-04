@@ -31,7 +31,7 @@ require_once 'config.inc';
 require_once 'util.inc';
 require_once 'interfaces.inc';
 
-$gateways = (new \Muro\Routing\Gateways())->gatewaysIndexedByName(true, true, true);
+$gateways = (new \OPNsense\Routing\Gateways())->gatewaysIndexedByName(true, true, true);
 
 $ret = array();
 

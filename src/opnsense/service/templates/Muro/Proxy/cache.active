@@ -1,5 +1,0 @@
-{% if helpers.exists('Muro.proxy.general.cache.local') %}
-{%   if Muro.proxy.general.cache.local.enabled == '1' %}
-yes
-{%   endif %}
-{% endif %}

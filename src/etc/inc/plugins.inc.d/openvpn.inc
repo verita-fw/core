@@ -72,7 +72,7 @@ function openvpn_services()
         }
     }
 
-    foreach ((new Muro\OpenVPN\OpenVPN())->Instances->Instance->iterateItems() as $key => $node) {
+    foreach ((new OPNsense\OpenVPN\OpenVPN())->Instances->Instance->iterateItems() as $key => $node) {
         if (!empty((string)$node->enabled)) {
             $services[] = [
                 'description' => "OpenVPN {$node->role} " . htmlspecialchars($node->description),
@@ -94,7 +94,7 @@ function openvpn_services()
 function openvpn_interfaces()
 {
     $interfaces = [];
-    if ((new Muro\OpenVPN\OpenVPN())->isEnabled()) {
+    if ((new OPNsense\OpenVPN\OpenVPN())->isEnabled()) {
         $interfaces['openvpn'] = [
             'enable' => true,
             'if' => 'openvpn',
@@ -125,7 +125,7 @@ function openvpn_devices()
         }
     }
 
-    foreach ((new Muro\OpenVPN\OpenVPN())->Instances->Instance->iterateItems() as $key => $node) {
+    foreach ((new OPNsense\OpenVPN\OpenVPN())->Instances->Instance->iterateItems() as $key => $node) {
         $mode = ((string)$node->role)[0];
         $name = "ovpn{$mode}{$node->vpnid}";
         $names[$name] = [
@@ -151,7 +151,7 @@ function openvpn_xmlrpc_sync()
 
     $result[] = array(
         'description' => gettext('OpenVPN'),
-        'section' => 'openvpn,Muro.OpenVPN',
+        'section' => 'openvpn,OPNsense.OpenVPN',
         'id' => 'openvpn',
         'services' => ["openvpn"],
     );
@@ -212,7 +212,7 @@ function openvpn_create_key()
 
 function openvpn_vpnid_next()
 {
-    $vpnids = (new Muro\OpenVPN\OpenVPN())->usedVPNIds();
+    $vpnids = (new OPNsense\OpenVPN\OpenVPN())->usedVPNIds();
     for ($vpnid = 1; true; $vpnid++) {
         if (!in_array($vpnid, $vpnids)) {
             return $vpnid;
@@ -1047,7 +1047,7 @@ function openvpn_prepare($device)
 {
     if (str_starts_with($device, 'ovpn')) {
         $vpnid = preg_replace("/[^0-9]/", "", $device);
-        $settings = (new Muro\OpenVPN\OpenVPN())->getInstanceById($vpnid);
+        $settings = (new OPNsense\OpenVPN\OpenVPN())->getInstanceById($vpnid);
         if ($settings) {
             // XXX: split device creation and legacy configure?
             openvpn_reconfigure($settings['role'], $settings, true);
@@ -1276,7 +1276,7 @@ function openvpn_refresh_crls()
             }
         }
     }
-    foreach ((new Muro\OpenVPN\OpenVPN())->Instances->Instance->iterateItems() as $key => $node) {
+    foreach ((new OPNsense\OpenVPN\OpenVPN())->Instances->Instance->iterateItems() as $key => $node) {
         if (!empty((string)$node->enabled) && !empty((string)$node->crl)) {
             $fpath = "/var/etc/openvpn/server-{$key}.crl-verify";
             $crl = lookup_crl((string)$node->crl);

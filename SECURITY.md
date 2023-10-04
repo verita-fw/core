@@ -5,7 +5,7 @@ here https://docs.opnsense.org/security.html
 
 ## Supported Versions
 
-Muro is a security platform which is released on regular intervals. In
+OPNsense is a security platform which is released on regular intervals. In
 order to find the latest still supported version, please visit https://docs.opnsense.org/releases.html
 
 For both the community and business edition only the last published major

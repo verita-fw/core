@@ -1,4 +1,4 @@
-Contributing to Muro
+Contributing to OPNsense
 ========================
 
 Thanks for considering a pull request or issue report.  Below are a
@@ -14,8 +14,8 @@ than creating a new one as there may be workarounds or ideas available.
 
 When creating bug reports, please make sure you provide the following:
 
-* The current Muro version where the bug first appeared
-* The last Muro version where the bug did not exist
+* The current OPNsense version where the bug first appeared
+* The last OPNsense version where the bug did not exist
 * The exact URL of the GUI page involved (if any)
 * A list of steps to replicate the bug
 
@@ -40,7 +40,7 @@ be added to our roadmap:
 
 https://opnsense.org/about/road-map/
 
-Feature requests beyond the scope of Muro may still be provided
+Feature requests beyond the scope of OPNsense may still be provided
 using the plugin framework:
 
 https://github.com/opnsense/plugins/issues

@@ -30,11 +30,11 @@
 // initialize phalcon components for our script
 require_once('script/load_phalcon.php');
 
-use Muro\Core\Config;
+use OPNsense\Core\Config;
 
 $classprefix = !empty($argv[1]) ? str_replace('/', '\\', $argv[1]) : '';
 
-$class_info = new \ReflectionClass("Muro\\Base\\BaseModel");
+$class_info = new \ReflectionClass("OPNsense\\Base\\BaseModel");
 $executed_migration = false;
 $model_dir = dirname($class_info->getFileName()) . "/../../";
 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($model_dir)) as $x) {
@@ -48,7 +48,7 @@ foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($model_dir
         try {
             $mdl_class_info = new \ReflectionClass($classname);
             $parent = $mdl_class_info->getParentClass();
-            if ($parent && $parent->name == 'Muro\Base\BaseModel') {
+            if ($parent && $parent->name == 'OPNsense\Base\BaseModel') {
                 $mdl = $mdl_class_info->newInstance();
                 $version_pre = $mdl->getVersion();
                 $mig_performed = $mdl->runMigrations();

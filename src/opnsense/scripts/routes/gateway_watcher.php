@@ -36,7 +36,7 @@ function signalhandler($signal)
 {
     global $config;
 
-    Muro\Core\Config::getInstance()->forceReload();
+    OPNsense\Core\Config::getInstance()->forceReload();
     $config = parse_config();
 
     syslog(LOG_NOTICE, 'Reloaded gateway watcher configuration on SIGHUP');

@@ -107,7 +107,7 @@ require_once('plugins.inc');
  */
 function load_config_from_file($filename)
 {
-    return Muro\Core\Config::getInstance()->toArrayFromFile($filename, listtags());
+    return OPNsense\Core\Config::getInstance()->toArrayFromFile($filename, listtags());
 }
 
 /****f* config/parse_config
@@ -118,7 +118,7 @@ function load_config_from_file($filename)
  ******/
 function parse_config()
 {
-    $cnf = Muro\Core\Config::getInstance();
+    $cnf = OPNsense\Core\Config::getInstance();
 
     // return config data as array, use old "listags" construction to mark certain elements as array (even if they're not recurring)
     $config = $cnf->toArray(listtags());
@@ -172,7 +172,7 @@ function convert_config($verbose = false)
     }
 
     /* reload the config as it was rewritten and saved in the script context */
-    Muro\Core\Config::getInstance()->forceReload();
+    OPNsense\Core\Config::getInstance()->forceReload();
     $config = parse_config();
 }
 
@@ -206,13 +206,13 @@ function write_config($desc = '', $backup = true)
 
     plugins_interfaces();
 
-    $cnf = Muro\Core\Config::getInstance();
+    $cnf = OPNsense\Core\Config::getInstance();
     $cnf->fromArray($config);
     $revision_info = make_config_revision_entry($desc);
 
     try {
         $cnf->save($revision_info, $backup);
-    } catch (Muro\Core\ConfigException $e) {
+    } catch (OPNsense\Core\ConfigException $e) {
         // write failure
         syslog(LOG_ERR, 'WARNING: Config contents could not be saved. Could not open file!');
         return -1;
@@ -232,7 +232,7 @@ function config_restore($conffile)
         return 1;
     }
 
-    $cnf = Muro\Core\Config::getInstance();
+    $cnf = OPNsense\Core\Config::getInstance();
     $cnf->backup();
     $cnf->restoreBackup($conffile);
 

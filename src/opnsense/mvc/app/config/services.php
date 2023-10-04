@@ -7,8 +7,8 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
-use Muro\Core\Config;
-use Muro\Core\Routing;
+use OPNsense\Core\Config;
+use OPNsense\Core\Routing;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework

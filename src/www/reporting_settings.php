@@ -36,7 +36,7 @@ require_once("system.inc");
 require_once("plugins.inc.d/unbound.inc");
 
 $rrdcfg = &config_read_array('rrd');
-$unboundcfg = &config_read_array('Muro', 'unboundplus', 'general');
+$unboundcfg = &config_read_array('OPNsense', 'unboundplus', 'general');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = [];

@@ -52,7 +52,7 @@ if (file_exists($vfilename) && filesize($vfilename) > 0) {
 
 /* collect changed laggs to reconfigure */
 $lagg_configure = [];
-foreach ((new Muro\Interfaces\Lagg())->lagg->iterateItems() as $item) {
+foreach ((new OPNsense\Interfaces\Lagg())->lagg->iterateItems() as $item) {
     $lagg = [];
     foreach ($item->iterateItems() as $node) {
         $lagg[$node->getInternalXMLTagName()] = (string)$node;

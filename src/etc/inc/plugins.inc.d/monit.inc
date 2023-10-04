@@ -37,8 +37,8 @@ function monit_services()
     $services = array();
 
     if (
-        isset($config['Muro']['monit']['general']['enabled']) &&
-        $config['Muro']['monit']['general']['enabled'] == 1
+        isset($config['OPNsense']['monit']['general']['enabled']) &&
+        $config['OPNsense']['monit']['general']['enabled'] == 1
     ) {
         $services[] = array(
                 'description' => gettext('Monit System Monitoring'),
@@ -63,7 +63,7 @@ function monit_xmlrpc_sync()
 
     $result[] = array(
         'description' => gettext('Monit System Monitoring'),
-        'section' => 'Muro.monit',
+        'section' => 'OPNsense.monit',
         'id' => 'monit',
         'services' => ["monit"],
     );

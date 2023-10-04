@@ -93,7 +93,7 @@ class TestTemplateMethods(unittest.TestCase):
         """ test sample template
         :return:
         """
-        generated_filenames = self.tmpl.generate('Muro/Sample')
+        generated_filenames = self.tmpl.generate('OPNsense/Sample')
         self.assertEqual(len(generated_filenames), 4, 'number of output files not 4')
 
     def test_all(self):

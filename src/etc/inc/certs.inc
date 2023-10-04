@@ -707,7 +707,7 @@ function create_temp_openssl_config(&$extns)
         if (isset($extns[$extnTag])) {
             $template_extn = $extnTag . ' = ' . str_replace(array("\r", "\n"), '', $extns[$extnTag]);
             // Overwrite the placeholders for this property
-            $template = str_replace('###Muro:' . $extnTag . '###', $template_extn, $template);
+            $template = str_replace('###OPNsense:' . $extnTag . '###', $template_extn, $template);
         }
     }
     file_put_contents($configFilename, $template);

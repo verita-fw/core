@@ -141,7 +141,7 @@ function ipsec_services()
 
     $services = [];
 
-    if (!empty($config['ipsec']['enable']) || (new \Muro\IPsec\Swanctl())->isEnabled()) {
+    if (!empty($config['ipsec']['enable']) || (new \OPNsense\IPsec\Swanctl())->isEnabled()) {
         $pconfig = [];
         $pconfig['name'] = 'strongswan';
         $pconfig['description'] = gettext('IPsec VPN');
@@ -161,7 +161,7 @@ function ipsec_interfaces()
 {
     global $config;
 
-    $swanctl = (new \Muro\IPsec\Swanctl());
+    $swanctl = (new \OPNsense\IPsec\Swanctl());
     $interfaces = [];
 
     $is_enabled = $swanctl->isEnabled();
@@ -201,7 +201,7 @@ function ipsec_devices()
     $devices = [];
     $names = [];
 
-    $vtis = array_merge(ipsec_get_configured_vtis(), (new \Muro\IPsec\Swanctl())->getVtiDevices());
+    $vtis = array_merge(ipsec_get_configured_vtis(), (new \OPNsense\IPsec\Swanctl())->getVtiDevices());
     foreach ($vtis as $device => $details) {
         $names[$device] = [
             'descr' => sprintf('%s (%s)', $device, $details['descr']),
@@ -224,7 +224,7 @@ function ipsec_devices()
     return $devices;
 }
 
-function ipsec_firewall(\Muro\Firewall\Plugin $fw)
+function ipsec_firewall(\OPNsense\Firewall\Plugin $fw)
 {
     global $config;
 
@@ -323,7 +323,7 @@ function ipsec_xmlrpc_sync()
 
     $result[] = array(
         'description' => gettext('IPsec'),
-        'section' => 'ipsec,Muro.IPsec,Muro.Swanctl',
+        'section' => 'ipsec,OPNsense.IPsec,OPNsense.Swanctl',
         'id' => 'ipsec',
         'services' => ["strongswan"],
     );
@@ -1061,7 +1061,7 @@ function ipsec_write_strongswan_conf()
     if (empty($radius_auth_servers) && !empty($a_client['radius_source'])) {
         $radius_auth_servers = $a_client['radius_source'];
     }
-    if ((isset($a_client['enable']) || (new \Muro\IPsec\Swanctl())->isEnabled()) && !empty($radius_auth_servers)) {
+    if ((isset($a_client['enable']) || (new \OPNsense\IPsec\Swanctl())->isEnabled()) && !empty($radius_auth_servers)) {
         $disable_xauth = true; // disable Xauth when radius is used.
         $strongswanTree['charon']['plugins']['eap-radius'] = [];
         $strongswanTree['charon']['plugins']['eap-radius']['servers'] = [];
@@ -1091,7 +1091,7 @@ function ipsec_write_strongswan_conf()
             $strongswanTree['charon']['plugins']['eap-radius']['accounting'] = 'yes';
         }
     }
-    if ((isset($a_client['enable']) && !$disable_xauth) || (new \Muro\IPsec\Swanctl())->isEnabled()) {
+    if ((isset($a_client['enable']) && !$disable_xauth) || (new \OPNsense\IPsec\Swanctl())->isEnabled()) {
         $strongswanTree['charon']['plugins']['xauth-pam'] = [
             'pam_service' => 'ipsec',
             'session' => 'no',
@@ -1138,7 +1138,7 @@ function ipsec_write_certs()
     global $config;
     $a_phase1 = isset($config['ipsec']['phase1']) ? $config['ipsec']['phase1'] : [];
 
-    foreach ((new \Muro\IPsec\Swanctl())->getUsedCertrefs() as $certref) {
+    foreach ((new \OPNsense\IPsec\Swanctl())->getUsedCertrefs() as $certref) {
         $cert = lookup_cert($certref);
         if (empty($cert)) {
             log_msg(sprintf('Error: Invalid certificate reference for %s', $ph1ent['name']), LOG_ERR);
@@ -1190,7 +1190,7 @@ function ipsec_write_keypairs()
       'privateKey' => '/usr/local/etc/swanctl/private'
     ];
     $filenames = [];
-    foreach ((new \Muro\IPsec\IPsec())->keyPairs->keyPair->iterateItems() as $uuid => $keyPair) {
+    foreach ((new \OPNsense\IPsec\IPsec())->keyPairs->keyPair->iterateItems() as $uuid => $keyPair) {
         foreach ($paths as $key => $path) {
             if (!empty((string)$keyPair->$key)) {
                 $filename = "{$path}/{$uuid}.pem";
@@ -1244,7 +1244,7 @@ function ipsec_write_secrets()
         }
     }
 
-    foreach ((new \Muro\IPsec\IPsec())->preSharedKeys->preSharedKey->iterateItems() as $uuid => $psk) {
+    foreach ((new \OPNsense\IPsec\IPsec())->preSharedKeys->preSharedKey->iterateItems() as $uuid => $psk) {
         $keyType = $psk->keyType == 'PSK' ? 'ike' : strtolower($psk->keyType);
         $dataKey = "{$keyType}-{$uuid}";
         $secrets[$dataKey] = ['id-0' => (string)$psk->ident];
@@ -1316,7 +1316,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
     ipsec_write_keypairs();
 
     /* begin ipsec.conf, hook mvc configuration first */
-    $swanctl = (new \Muro\IPsec\Swanctl())->getConfig();
+    $swanctl = (new \OPNsense\IPsec\Swanctl())->getConfig();
     $swanctl['secrets'] = ipsec_write_secrets();
 
     if (!empty($config['ipsec']['passthrough_networks'])) {
@@ -1615,7 +1615,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
     service_log("done.\n", $verbose);
 
     /* reload routes on all attached VTI devices */
-    plugins_configure('route_reload', $verbose, [array_keys(array_merge(ipsec_get_configured_vtis(), (new \Muro\IPsec\Swanctl())->getVtiDevices()))]);
+    plugins_configure('route_reload', $verbose, [array_keys(array_merge(ipsec_get_configured_vtis(), (new \OPNsense\IPsec\Swanctl())->getVtiDevices()))]);
 }
 
 function generate_strongswan_conf(array $tree, $level = 0): string
@@ -1704,7 +1704,7 @@ function ipsec_get_configured_vtis()
 function ipsec_configure_vti($verbose = false, $device = null)
 {
     // query planned and configured interfaces
-    $configured_intf = array_merge(ipsec_get_configured_vtis(), (new \Muro\IPsec\Swanctl())->getVtiDevices());
+    $configured_intf = array_merge(ipsec_get_configured_vtis(), (new \OPNsense\IPsec\Swanctl())->getVtiDevices());
     $current_interfaces = [];
 
     foreach (legacy_interfaces_details() as $intf => $intf_details) {

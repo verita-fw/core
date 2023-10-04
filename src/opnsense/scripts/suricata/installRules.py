@@ -41,7 +41,7 @@ if __name__ == '__main__':
     rule_target_dir = ('%s../opnsense.rules' % rule_source_directory)
     rule_yaml_list = ('%s../installed_rules.yaml' % rule_source_directory)
 
-    # parse Muro rule config
+    # parse OPNsense rule config
     rule_updates = RuleCache.list_local_changes()
 
     # create target rule directory if not existing

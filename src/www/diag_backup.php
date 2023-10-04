@@ -37,7 +37,7 @@ require_once("filter.inc");
 require_once("rrd.inc");
 require_once("system.inc");
 
-use Muro\Backup\Local;
+use OPNsense\Backup\Local;
 
 /**
  * restore config section
@@ -68,7 +68,7 @@ function restore_config_section($section_name, $new_contents)
 }
 
 $areas = array(
-    'Muro' => gettext('Muro Additions'),	/* XXX need specifics */
+    'OPNsense' => gettext('OPNsense Additions'),	/* XXX need specifics */
     'bridges' => gettext('Bridge Devices'),
     'ca' => gettext('SSL Certificate Authorities'),
     'cert' => gettext('SSL Certificates'),
@@ -106,7 +106,7 @@ $areas = array(
     'wol' => gettext('Wake on LAN'),
 );
 
-$backupFactory = new Muro\Backup\BackupFactory();
+$backupFactory = new OPNsense\Backup\BackupFactory();
 $do_reboot = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 }
                 $filename = $_FILES['conffile']['tmp_name'];
                 file_put_contents($filename, $data);
-                $cnf = Muro\Core\Config::getInstance();
+                $cnf = OPNsense\Core\Config::getInstance();
                 if ($cnf->restoreBackup($filename)) {
                     if (!empty($pconfig['rebootafterrestore'])) {
                         $do_reboot = true;

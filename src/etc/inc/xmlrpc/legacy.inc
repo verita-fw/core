@@ -142,7 +142,7 @@ function restore_config_section_xmlrpc($new_config)
 {
     global $config;
     // lock config write during merge
-    Muro\Core\Config::getInstance()->lock();
+    OPNsense\Core\Config::getInstance()->lock();
 
     require_once("interfaces.inc");
     require_once("filter.inc");

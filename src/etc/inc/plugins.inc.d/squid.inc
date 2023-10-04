@@ -33,8 +33,8 @@ function squid_services()
     $services = array();
 
     if (
-        isset($config['Muro']['proxy']['general']['enabled']) &&
-        $config['Muro']['proxy']['general']['enabled'] == 1
+        isset($config['OPNsense']['proxy']['general']['enabled']) &&
+        $config['OPNsense']['proxy']['general']['enabled'] == 1
     ) {
         $services[] = array(
             'description' => gettext('Web Proxy'),
@@ -57,7 +57,7 @@ function squid_xmlrpc_sync()
 
     $result[] = array(
         'description' => gettext('Web Proxy'),
-        'section' => 'Muro.proxy',
+        'section' => 'OPNsense.proxy',
         'id' => 'squid',
         'services' => ["squid"],
     );

@@ -32,10 +32,10 @@
 require_once("config.inc");
 require_once("certs.inc");
 
-$store = new Muro\Trust\Store();
+$store = new OPNsense\Trust\Store();
 $instances = [];
 @mkdir("/usr/local/etc/syslog-ng/cert.d", 0700, true);
-foreach ((new Muro\Syslog\Syslog())->destinations->destination->iterateItems() as $id => $item) {
+foreach ((new OPNsense\Syslog\Syslog())->destinations->destination->iterateItems() as $id => $item) {
     if (in_array($item->transport, ['tls4', 'tls6']) && (string)$item->enabled == "1"){
         $dest_key = str_replace("-", "", $id);
         $instances[] = $dest_key;

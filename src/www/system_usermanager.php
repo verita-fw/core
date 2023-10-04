@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         //
         // the client side is (jquery) generates the actual download file.
         $username = $a_user[$id]['name'];
-        $authFactory = new \Muro\Auth\AuthenticationFactory();
+        $authFactory = new \OPNsense\Auth\AuthenticationFactory();
         $authenticator = $authFactory->get("Local API");
         $keyData = $authenticator->createKey($username);
         if ($keyData != null) {
@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } elseif ($act =='delApiKey' && isset($id)) {
         $username = $a_user[$id]['name'];
         if (!empty($pconfig['api_delete'])) {
-            $authFactory = new \Muro\Auth\AuthenticationFactory();
+            $authFactory = new \OPNsense\Auth\AuthenticationFactory();
             $authenticator = $authFactory->get("Local API");
             $authenticator->dropKey($username, $pconfig['api_delete']);
             $savemsg = sprintf(gettext('The API key "%s" was successfully removed.'), $pconfig['api_delete']);
@@ -484,7 +484,7 @@ $( document ).ready(function() {
     $("#import_ldap_users").click(function(event){
       event.preventDefault();
       const url="system_usermanager_import_ldap.php";
-      var oWin = window.open(url,"Muro","width=620,height=400,top=150,left=150,scrollbars=yes");
+      var oWin = window.open(url,"OPNsense","width=620,height=400,top=150,left=150,scrollbars=yes");
       if (oWin == null || typeof(oWin) == "undefined") {
         alert("<?= html_safe(gettext('Popup blocker detected. Action aborted.')) ?>");
       }

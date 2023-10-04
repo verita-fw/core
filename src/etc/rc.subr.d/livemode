@@ -58,7 +58,7 @@ if (is_install_media()) {
 
         echo "\n";
 
-        /* tailored for Muro to occupy same width below */
+        /* tailored for OPNsense to occupy same width below */
         $namex = product::getInstance()->name();
 
         $greeting = "Welcome!  {$namex} is running in live mode from install media.  Please\n" .

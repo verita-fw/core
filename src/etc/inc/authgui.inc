@@ -32,7 +32,7 @@
 
 require_once("auth.inc");
 
-$acl = new Muro\Core\ACL();
+$acl = new OPNsense\Core\ACL();
 $priv_list = $acl->getPrivList();
 
 function set_language()
@@ -53,7 +53,7 @@ function set_language()
     }
 
     $lang_encoding = $lang . '.UTF-8';
-    $textdomain = 'Muro';
+    $textdomain = 'OPNsense';
 
     putenv('LANG=' . $lang_encoding);
     textdomain($textdomain);
@@ -169,7 +169,7 @@ function session_auth()
 
     /* Validate incoming login request */
     if (isset($_POST['login']) && !empty($_POST['usernamefld']) && !empty($_POST['passwordfld'])) {
-        $authFactory = new \Muro\Auth\AuthenticationFactory();
+        $authFactory = new \OPNsense\Auth\AuthenticationFactory();
         $is_authenticated = $authFactory->authenticate("WebGui", $_POST['usernamefld'], $_POST['passwordfld']);
 
         if ($is_authenticated) {
@@ -203,7 +203,7 @@ function session_auth()
             } else {
                 if ($_SERVER['REQUEST_URI'] == "/") {
                     // default landing page
-                    $acl = new Muro\Core\ACL();
+                    $acl = new OPNsense\Core\ACL();
                     $url = $acl->getLandingPage($_SESSION['Username']);
                     header(url_safe("Location: /{$url}"));
                 } else {

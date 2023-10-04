@@ -1,7 +1,0 @@
-{#
-    base64 encoded zip archive containing template overrides
-#}
-{
-  "install": "{{ Muro.proxy.general.error_pages|default('opnsense') }}",
-  "content": "{% if not helpers.empty('Muro.proxy.error_pages.template') %}{{ Muro.proxy.error_pages.template }}{% endif %}"
-}

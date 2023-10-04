@@ -32,7 +32,7 @@ function ipfw_services()
 
     $services = array();
 
-    if (!empty($config['Muro']['TrafficShaper']['rules']['rule'])) {
+    if (!empty($config['OPNsense']['TrafficShaper']['rules']['rule'])) {
         $services[] = array(
             'description' => gettext('Shaper'),
             'configd' => array(
@@ -54,13 +54,13 @@ function ipfw_xmlrpc_sync()
 
     $result[] = array(
         'description' => gettext('Shaper'),
-        'section' => 'Muro.TrafficShaper',
+        'section' => 'OPNsense.TrafficShaper',
         'id' => 'shaper',
         'services' => ["ipfw"],
     );
     $result[] = array(
         'description' => gettext('Captive Portal'),
-        'section' => 'Muro.captiveportal',
+        'section' => 'OPNsense.captiveportal',
         'id' => 'captiveportal',
         'services' => ["ipfw"],
     );

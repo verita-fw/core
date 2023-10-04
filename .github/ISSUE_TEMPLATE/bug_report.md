@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve Muro
+about: Create a report to help us improve OPNsense
 title: ''
 labels: ''
 assignees: ''
@@ -50,6 +50,6 @@ Add any other context about the problem here.
 
 Software version used and hardware type if relevant, e.g.:
 
-Muro 19.1.1 (amd64, OpenSSL).
+OPNsense 19.1.1 (amd64, OpenSSL).
 Intel® Xeon™ E3-1225V5 3.3Ghz Quad Core
 Network Intel® I210-AT

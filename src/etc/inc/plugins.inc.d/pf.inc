@@ -206,18 +206,18 @@ function pf_xmlrpc_sync()
     );
     $result[] = array(
         'description' => gettext('Firewall Categories'),
-        'section' => 'Muro.Firewall.Category',
+        'section' => 'OPNsense.Firewall.Category',
         'id' => 'categories',
     );
     $result[] = array(
         'description' => gettext('Firewall Log Templates'),
-        'section' => 'Muro.Firewall.Lvtemplate',
+        'section' => 'OPNsense.Firewall.Lvtemplate',
         'id' => 'lvtemplate',
     );
     $result[] = array(
         'description' => gettext('Aliases'),
         'help' => gettext('Synchronize the aliases over to the other HA host.'),
-        'section' => 'Muro.Firewall.Alias',
+        'section' => 'OPNsense.Firewall.Alias',
         'id' => 'aliases',
         'services' => ['pf'],
     );

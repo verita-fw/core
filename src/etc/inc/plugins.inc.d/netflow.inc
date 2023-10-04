@@ -28,14 +28,14 @@
 
 function netflow_enabled()
 {
-    $mdl = new \Muro\Diagnostics\Netflow();
+    $mdl = new \OPNsense\Diagnostics\Netflow();
 
     return !empty((string)$mdl->capture->targets) && !empty((string)$mdl->capture->interfaces);
 }
 
 function netflow_local_enabled()
 {
-    $mdl = new \Muro\Diagnostics\Netflow();
+    $mdl = new \OPNsense\Diagnostics\Netflow();
 
     return $mdl->collect->enable == '1';
 }
@@ -83,7 +83,7 @@ function netflow_xmlrpc_sync()
     $result = [];
     $result[] = array(
         'description' => gettext('Netflow / Insight'),
-        'section' => 'Muro.Netflow',
+        'section' => 'OPNsense.Netflow',
         'id' => 'syslog',
         'services' => ["samplicate", "flowd_aggregate"],
     );

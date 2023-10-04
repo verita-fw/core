@@ -46,5 +46,5 @@ if ($script == 'POST_INSTALL') {
 }
 
 /* flush user-facing caches */
-(new Muro\Core\ACL())->invalidateCache();
-(new Muro\Base\Menu\MenuSystem())->invalidateCache();
+(new OPNsense\Core\ACL())->invalidateCache();
+(new OPNsense\Base\Menu\MenuSystem())->invalidateCache();

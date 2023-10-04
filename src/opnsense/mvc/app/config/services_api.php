@@ -32,8 +32,8 @@ use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Mvc\View;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
-use Muro\Core\Config;
-use Muro\Core\Routing;
+use OPNsense\Core\Config;
+use OPNsense\Core\Routing;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -100,7 +100,7 @@ $di->get('eventsManager')->attach("dispatch:beforeException", function ($event, 
             // send to error action on default index controller
             $dispatcher->forward(array(
                 'controller' => 'index',
-                'namespace' => '\Muro\Base',
+                'namespace' => '\OPNsense\Base',
                 'action' => 'handleError',
                 'params'     => array(
                     'message' =>  'controller ' . $dispatcher->getControllerClass() . ' not found',
@@ -112,7 +112,7 @@ $di->get('eventsManager')->attach("dispatch:beforeException", function ($event, 
             // send to error action on default index controller
             $dispatcher->forward(array(
                 'controller' => 'index',
-                'namespace' => '\Muro\Base',
+                'namespace' => '\OPNsense\Base',
                 'action' => 'handleError',
                 'params'     => array(
                     'message' => 'action ' . $dispatcher->getActionName() . ' not found',

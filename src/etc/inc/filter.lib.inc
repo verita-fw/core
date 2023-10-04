@@ -49,13 +49,13 @@ function filter_core_bootstrap($fw)
 
 /**
  * Initialize firewall plugin system with interfaces and gateways
- * @return \Muro\Firewall\Plugin
+ * @return \OPNsense\Firewall\Plugin
  */
 function filter_core_get_initialized_plugin_system()
 {
-    $fw = new \Muro\Firewall\Plugin();
+    $fw = new \OPNsense\Firewall\Plugin();
     $ifdetails = legacy_interfaces_details();
-    $gateways = new \Muro\Routing\Gateways();
+    $gateways = new \OPNsense\Routing\Gateways();
     $cnfint = legacy_config_get_interfaces(array("enable" => true));
     foreach ($cnfint as $key => &$value) {
         // to set "reply-to" we need to know the gateway for our interface, let's collect it here and pass it on to
@@ -142,13 +142,13 @@ function filter_core_get_antilockout()
  * @param array $aliases aliases already parsed (prevent deadlock)
  * @param array $all_aliases all known alias names
  * @return array containing ports
- * @throws \Muro\Base\ModelException
+ * @throws \OPNsense\Base\ModelException
  */
 function filter_core_get_port_alias($aliasname, $aliases = [], $aliasObject = null, $all_aliases = [])
 {
     $response = [];
     $aliases[] = $aliasname;
-    $aliasObject = $aliasObject == null ? (new \Muro\Firewall\Alias()) : $aliasObject;
+    $aliasObject = $aliasObject == null ? (new \OPNsense\Firewall\Alias()) : $aliasObject;
     foreach ($aliasObject->aliasIterator() as $aliased) {
         if ($aliasname == $aliased['name'] && $aliased['type'] == 'port' && !empty($aliased['enabled'])) {
             foreach ($aliased['content'] as $address) {
@@ -608,7 +608,7 @@ function filter_core_rules_user($fw)
 
     $sched_kill_states = [];
 
-    foreach ((new \Muro\Firewall\Group())->ifgroupentry->iterateItems() as $node) {
+    foreach ((new \OPNsense\Firewall\Group())->ifgroupentry->iterateItems() as $node) {
         $ifgroups[(string)$node->ifname] = !empty((string)$node->sequence) ? (string)$node->sequence : 0;
     }
 
@@ -617,7 +617,7 @@ function filter_core_rules_user($fw)
         foreach ($config['filter']['rule'] as $idx => $rule) {
             // calculate a hash for this area so we can track this rule, we should replace this
             // with uuid's on the rules like the new style models do eventually.
-            $rule['label'] = Muro\Firewall\Util::calcRuleHash($rule);
+            $rule['label'] = OPNsense\Firewall\Util::calcRuleHash($rule);
 
             $intf = !empty($rule['floating']) ? 'FloatingRules' : $rule['interface'];
             $rule['#ref'] = sprintf('firewall_rules_edit.php?if=%s&id=%s', $intf, $idx);

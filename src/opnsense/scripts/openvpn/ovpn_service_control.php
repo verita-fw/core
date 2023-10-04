@@ -95,7 +95,7 @@ function get_vhid_status()
 {
     $vhids = [];
     $uuids = [];
-    foreach ((new Muro\Interfaces\Vip())->vip->iterateItems() as $id => $item) {
+    foreach ((new OPNsense\Interfaces\Vip())->vip->iterateItems() as $id => $item) {
         if ($item->mode == 'carp') {
             $uuids[(string)$item->vhid] =  $id;
         }
@@ -122,7 +122,7 @@ if (isset($opts['h']) || empty($args) || !in_array($args[0], ['start', 'stop', '
     echo "Usage: ovpn_service_control.php [-a] [-h] [stop|start|restart|configure] [uuid]\n\n";
     echo "\t-a all instances\n";
 } elseif (isset($opts['a']) || !empty($args[1])) {
-    $mdl = new Muro\OpenVPN\OpenVPN();
+    $mdl = new OPNsense\OpenVPN\OpenVPN();
     $instance_id = $args[1] ?? null;
     $action = $args[0];
 

@@ -64,7 +64,7 @@ function ipsec_ikeid_next() {
 
 function ipsec_keypairs()
 {
-    $mdl = new \Muro\IPsec\IPsec();
+    $mdl = new \OPNsense\IPsec\IPsec();
     $node = $mdl->getNodeByReference('keyPairs.keyPair');
 
     return $node ? $node->getNodes() : [];

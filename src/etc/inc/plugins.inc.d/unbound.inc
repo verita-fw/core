@@ -32,7 +32,7 @@
 
 function unbound_enabled()
 {
-    $mdl = new \Muro\Unbound\Unbound();
+    $mdl = new \OPNsense\Unbound\Unbound();
     return !empty((string)$mdl->general->enabled);
 }
 
@@ -57,7 +57,7 @@ function unbound_services()
         return $services;
     }
 
-    $mdl = new \Muro\Unbound\Unbound();
+    $mdl = new \OPNsense\Unbound\Unbound();
 
     $pconfig = [];
     $pconfig['name'] = 'unbound';
@@ -77,7 +77,7 @@ function unbound_xmlrpc_sync()
     $result = [];
 
     $result[] = [
-        'section' => 'unbound,Muro.unboundplus',
+        'section' => 'unbound,OPNsense.unboundplus',
         'description' => gettext('Unbound DNS'),
         'services' => ['unbound'],
         'id' => 'dnsresolver',
@@ -105,7 +105,7 @@ function unbound_optimization()
 
 function unbound_service_stop()
 {
-    $mdl = new \Muro\Unbound\Unbound();
+    $mdl = new \OPNsense\Unbound\Unbound();
 
     mwexec('/usr/local/bin/flock -E 0 -o /tmp/unbound_start.lock true');
 
@@ -128,7 +128,7 @@ function unbound_service_stop()
 function unbound_generate_config()
 {
     global $config;
-    $general = config_read_array('Muro', 'unboundplus', 'general');
+    $general = config_read_array('OPNsense', 'unboundplus', 'general');
 
     $pythonv = readlink('/usr/local/bin/python3');
     $python_dir = "/usr/local/lib/{$pythonv}";
@@ -168,7 +168,7 @@ function unbound_generate_config()
 
     $private_addr = "";
     if (!isset($config['system']['webgui']['nodnsrebindcheck'])) {
-        $advanced = config_read_array('Muro', 'unboundplus', 'advanced');
+        $advanced = config_read_array('OPNsense', 'unboundplus', 'advanced');
         if (!empty($advanced) && !empty($advanced['privateaddress'])) {
             foreach (explode(',', $advanced['privateaddress']) as $address) {
                 $private_addr .= "private-address: {$address}\n";
@@ -235,7 +235,7 @@ function unbound_generate_config()
         $include_dhcpleases = '';
     }
 
-    $unbound_mdl = new \Muro\Unbound\Unbound();
+    $unbound_mdl = new \OPNsense\Unbound\Unbound();
     $unbound_enabled = (string)$unbound_mdl->forwarding->enabled;
 
     $forward_conf = '';
@@ -340,7 +340,7 @@ remote-control:
 EOD;
 
     file_put_contents('/var/unbound/unbound.conf', $unboundconf);
-    configd_run('template reload Muro/Unbound/*');
+    configd_run('template reload OPNsense/Unbound/*');
 }
 
 function unbound_cache_flush()
@@ -351,7 +351,7 @@ function unbound_cache_flush()
 function unbound_configure_do($verbose = false, $unused = '')
 {
     global $config;
-    $mdl = new \Muro\Unbound\Unbound();
+    $mdl = new \OPNsense\Unbound\Unbound();
 
     unbound_service_stop();
 
@@ -388,7 +388,7 @@ function unbound_add_host_entries($ifconfig_details)
 {
     global $config;
 
-    $general = config_read_array('Muro', 'unboundplus', 'general');
+    $general = config_read_array('OPNsense', 'unboundplus', 'general');
 
     $ptr_records = ['127.0.0.1', '::1'];
 
@@ -478,7 +478,7 @@ function unbound_add_host_entries($ifconfig_details)
         unset($tmp_known_domains); // remove temporary variable
     }
 
-    $unbound_mdl = new \Muro\Unbound\Unbound();
+    $unbound_mdl = new \OPNsense\Unbound\Unbound();
     $hosts = iterator_to_array($unbound_mdl->hosts->host->iterateItems());
     $aliases = iterator_to_array($unbound_mdl->aliases->alias->iterateItems());
 

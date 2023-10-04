@@ -23,7 +23,7 @@ try {
 
     echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
 } catch (\Error | \Exception $e) {
-    if (!is_a($e, 'Muro\Base\UserException')) {
+    if (!is_a($e, 'OPNsense\Base\UserException')) {
         error_log($e);
     }
 

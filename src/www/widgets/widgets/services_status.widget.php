@@ -95,7 +95,7 @@ if (isset($_POST['servicestatusfilter'])) {
                     $('.srv_status_act2').click(function (event) {
                         event.preventDefault();
                         let url = '/api/core/service/' + $(this).data('service_action') + '/' + $(this).data('service');
-                        $("#MuroStdWaitDialog").modal('show');
+                        $("#OPNsenseStdWaitDialog").modal('show');
                         $.post(url, {}, function (data) {
                             // refresh page after service action via server
                             location.reload(true);

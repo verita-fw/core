@@ -26,8 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 CMD=${1}
-LOCKFILE="/tmp/pkg_upgrade.progress"
-PIPEFILE="/tmp/pkg_upgrade.pipe"
+ PIPEFILE="/tmp/pkg_upgrade.pipe"
 TEE="/usr/bin/tee -a"
 
 DO_FORCE=

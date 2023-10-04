@@ -43,7 +43,7 @@ function http_basic_auth($http_auth_header)
         if (count($userinfo) == 2) {
             $username = authenticate_user($userinfo[0], $userinfo[1]);
             if ($username !== false) {
-                $aclObj = new \Muro\Core\ACL();
+                $aclObj = new \OPNsense\Core\ACL();
                 return $aclObj->isPageAccessible($username, '/xmlrpc.php');
             }
         }
@@ -55,7 +55,7 @@ function http_basic_auth($http_auth_header)
 
 function authenticate_user($username, $password)
 {
-    $authFactory = new Muro\Auth\AuthenticationFactory();
+    $authFactory = new OPNsense\Auth\AuthenticationFactory();
 
     foreach(['Local Database', 'Local API'] as $authName) {
         $authenticator = $authFactory->get($authName);

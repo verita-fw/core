@@ -173,14 +173,14 @@ basicConstraints=CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 
 # This will be displayed in Netscape's comment listbox.
-nsComment			= "Muro Generated Client Certificate"
+nsComment			= "OPNsense Generated Client Certificate"
 
 # PKIX recommendations harmless if included in all certificates.
 subjectKeyIdentifier=hash
 authorityKeyIdentifier=keyid,issuer:always
 extendedKeyUsage=clientAuth
 
-###Muro:subjectAltName###
+###OPNsense:subjectAltName###
 
 [ v3_req ]
 
@@ -189,7 +189,7 @@ extendedKeyUsage=clientAuth
 basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 
-###Muro:subjectAltName###
+###OPNsense:subjectAltName###
 
 [ v3_ca ]
 
@@ -197,7 +197,7 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 # Extensions for a typical CA
 
 # This will be displayed in Netscape's comment listbox.
-nsComment			= "Muro Generated Certificate Authority"
+nsComment			= "OPNsense Generated Certificate Authority"
 
 # PKIX recommendation.
 
@@ -213,7 +213,7 @@ basicConstraints = critical, CA:true
 # When present, conforming CAs SHOULD mark this extension as critical.
 keyUsage = critical, cRLSign, digitalSignature, keyCertSign
 
-###Muro:subjectAltName###
+###OPNsense:subjectAltName###
 
 [ crl_ext ]
 
@@ -224,7 +224,7 @@ keyUsage = critical, cRLSign, digitalSignature, keyCertSign
 authorityKeyIdentifier=keyid:always
 
 # This will be displayed in Netscape's comment listbox.
-nsComment			= "Muro Generated Certificate Revocation List"
+nsComment			= "OPNsense Generated Certificate Revocation List"
 
 [ proxy_cert_ext ]
 # These extensions should be added when creating a proxy certificate
@@ -235,7 +235,7 @@ nsComment			= "Muro Generated Certificate Revocation List"
 basicConstraints=CA:FALSE
 
 # This will be displayed in Netscape's comment listbox.
-nsComment			= "Muro Generated Proxy Certificate"
+nsComment			= "OPNsense Generated Proxy Certificate"
 
 # PKIX recommendations harmless if included in all certificates.
 subjectKeyIdentifier=hash
@@ -279,33 +279,33 @@ ess_cert_id_chain	= no	# Must the ESS cert id chain be included?
 # Make a cert with nsCertType=server
 basicConstraints=CA:FALSE
 nsCertType			= server
-nsComment			= "Muro Generated Server Certificate"
+nsComment			= "OPNsense Generated Server Certificate"
 subjectKeyIdentifier=hash
 authorityKeyIdentifier=keyid,issuer:always
 extendedKeyUsage=serverAuth,1.3.6.1.5.5.8.2.2
 keyUsage = digitalSignature, keyEncipherment
 
-###Muro:subjectAltName###
+###OPNsense:subjectAltName###
 
 [ combined_server_client ]
 
 basicConstraints=CA:FALSE
-nsComment			   = "Muro Generated Combined Client/Server Certificate"
+nsComment			   = "OPNsense Generated Combined Client/Server Certificate"
 subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid,issuer:always
 extendedKeyUsage       = clientAuth,serverAuth,1.3.6.1.5.5.8.2.2
 # This is typical in keyUsage for a client certificate.
 keyUsage               = nonRepudiation, digitalSignature, keyEncipherment
 
-###Muro:subjectAltName###
+###OPNsense:subjectAltName###
 
 [ sign_csr ]
 
-nsComment              = "Muro Generated Certificate Signing Request"
+nsComment              = "OPNsense Generated Certificate Signing Request"
 subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid,issuer:always
 
-###Muro:subjectAltName###
-###Muro:keyUsage###
-###Muro:extendedKeyUsage###
-###Muro:basicConstraints###
+###OPNsense:subjectAltName###
+###OPNsense:keyUsage###
+###OPNsense:extendedKeyUsage###
+###OPNsense:basicConstraints###

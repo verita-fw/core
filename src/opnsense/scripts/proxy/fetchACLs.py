@@ -282,7 +282,7 @@ def filename_in_ignorelist(bfilename, filename_ext):
 
 
 def main():
-    # parse Muro external ACLs config
+    # parse OPNsense external ACLs config
     if os.path.exists(acl_config_fn):
         # create acl directory (if new)
         if not os.path.exists(acl_target_dir):

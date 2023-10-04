@@ -59,7 +59,7 @@ class ProxyTemplates:
         self._overlay_status = None
         self._all_src_files = dict()
         self._all_ovl_files = dict()
-        # base (Muro) template
+        # base (OPNsense) template
         for filename in glob.glob("/usr/local/opnsense/data/proxy/template_error_pages/*"):
             bfilename = os.path.basename(filename)
             with open(filename, "rb") as f_in:

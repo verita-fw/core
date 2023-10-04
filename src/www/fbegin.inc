@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-$aclObj = new \Muro\Core\ACL();
+$aclObj = new \OPNsense\Core\ACL();
 
 ?>
 

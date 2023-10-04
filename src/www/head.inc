@@ -14,7 +14,7 @@ function system_get_language_code() {
 }
 
 // link menu system
-$menu = new Muro\Base\Menu\MenuSystem();
+$menu = new OPNsense\Base\Menu\MenuSystem();
 /* XXX generating breadcrumbs requires getItems() call */
 $menuSystem = $menu->getItems($_SERVER['REQUEST_URI']);
 $menuBreadcrumbs = $menu->getBreadcrumbs();

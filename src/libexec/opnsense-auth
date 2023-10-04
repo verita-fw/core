@@ -59,7 +59,7 @@ $is_authenticated = false;
 $exit_status = -1;
 
 if (!empty($auth_data['user']) && isset($auth_data['password'])) {
-    $authFactory = new \Muro\Auth\AuthenticationFactory();
+    $authFactory = new \OPNsense\Auth\AuthenticationFactory();
     $is_authenticated = $authFactory->authenticate($auth_data['service'], $auth_data['user'], $auth_data['password']);
     if ($is_authenticated) {
         $authProps = $authFactory->getLastAuthProperties();

@@ -31,7 +31,7 @@ require_once("guiconfig.inc");
 require_once("interfaces.inc");
 require_once("plugins.inc.d/dpinger.inc");
 
-$gateways = new \Muro\Routing\Gateways();
+$gateways = new \OPNsense\Routing\Gateways();
 $a_gateways = array_values($gateways->gatewaysIndexedByName(true, false, true));
 $dpinger_default = dpinger_defaults();
 

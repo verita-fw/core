@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for Muro
+about: Suggest an idea for OPNsense
 title: ''
 labels: ''
 assignees: ''

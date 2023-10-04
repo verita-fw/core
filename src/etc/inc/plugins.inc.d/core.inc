@@ -32,14 +32,14 @@ function core_services()
 
     $services = array();
 
-    if (isset($config['Muro']['captiveportal']['zones']['zone'])) {
+    if (isset($config['OPNsense']['captiveportal']['zones']['zone'])) {
         $enabled = false;
-        if (!empty($config['Muro']['captiveportal']['zones']['zone']['enabled'])) {
+        if (!empty($config['OPNsense']['captiveportal']['zones']['zone']['enabled'])) {
             // single zone and enabled
             $enabled = true;
         } else {
             // possible more zones, traverse items
-            foreach ($config['Muro']['captiveportal']['zones']['zone'] as $zone) {
+            foreach ($config['OPNsense']['captiveportal']['zones']['zone'] as $zone) {
                 if (!empty($zone['enabled'])) {
                     $enabled = true;
                 }
@@ -327,7 +327,7 @@ function core_cron()
         );
     }
 
-    foreach ((new Muro\Backup\BackupFactory())->listProviders() as $classname => $provider) {
+    foreach ((new OPNsense\Backup\BackupFactory())->listProviders() as $classname => $provider) {
         if ($provider['handle']->isEnabled()) {
             $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d system remote backup', 0, 1);
             break;
@@ -438,13 +438,13 @@ function core_xmlrpc_sync()
     );
     $result[] = array(
         'description' => gettext('Syslog'),
-        'section' => 'syslog,Muro.Syslog',
+        'section' => 'syslog,OPNsense.Syslog',
         'id' => 'syslog',
         'services' => ["syslogd"],
     );
     $result[] = array(
         'description' => gettext('Cron'),
-        'section' => 'Muro.cron',
+        'section' => 'OPNsense.cron',
         'id' => 'cron',
         'services' => ["cron"],
     );

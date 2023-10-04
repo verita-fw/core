@@ -119,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $a_npt[] = $natent;
        }
 
-        Muro\Core\Config::getInstance()->fromArray($config);
-        $catmdl = new Muro\Firewall\Category();
+        OPNsense\Core\Config::getInstance()->fromArray($config);
+        $catmdl = new OPNsense\Firewall\Category();
         if ($catmdl->sync()) {
             $catmdl->serializeToConfig();
-            $config = Muro\Core\Config::getInstance()->toArray(listtags());
+            $config = OPNsense\Core\Config::getInstance()->toArray(listtags());
         }
 
         write_config();
@@ -236,7 +236,7 @@ $( document ).ready(function() {
                     <td>
                       <select name="category[]" id="category" multiple="multiple" class="tokenize" data-allownew="true" data-width="334px" data-live-search="true">
   <?php
-                      foreach ((new Muro\Firewall\Category())->iterateCategories() as $category):
+                      foreach ((new OPNsense\Firewall\Category())->iterateCategories() as $category):
                         $catname = htmlspecialchars($category['name'], ENT_QUOTES | ENT_HTML401);?>
                         <option value="<?=$catname;?>" <?=!empty($pconfig['category']) && in_array($catname, $pconfig['category']) ? 'selected="selected"' : '';?> ><?=$catname;?></option>
   <?php

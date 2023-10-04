@@ -129,7 +129,7 @@ function webgui_configure_do($verbose = false, $interface = '')
     webgui_generate_config($portarg, $crt, $key, $ca, $listeners);
 
     /* regenerate the php.ini files in case the setup has changed */
-    configd_run('template reload Muro/WebGui');
+    configd_run('template reload OPNsense/WebGui');
 
     /* flush Phalcon volt templates */
     foreach (glob('/usr/local/opnsense/mvc/app/cache/*.php') as $filename) {
@@ -279,7 +279,7 @@ server.max-keep-alive-idle = 30
 ## a static document-root, for virtual-hosting take look at the
 ## server.virtual-* options
 server.document-root        = "/usr/local/www/"
-server.tag = "Muro"
+server.tag = "OPNsense"
 
 {$http_rewrite_rules}
 

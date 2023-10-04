@@ -26,7 +26,7 @@
 
 LIC="BSD2CLAUSE"
 OS="FreeBSD"
-REPO="Muro"
+REPO="OPNsense"
 SEP="|||"
 
 case "${1}" in

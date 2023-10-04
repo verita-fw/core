@@ -33,8 +33,8 @@ function suricata_services()
     $services = array();
 
     if (
-        isset($config['Muro']['IDS']['general']['enabled']) &&
-        $config['Muro']['IDS']['general']['enabled'] == 1
+        isset($config['OPNsense']['IDS']['general']['enabled']) &&
+        $config['OPNsense']['IDS']['general']['enabled'] == 1
     ) {
         $services[] = array(
             'description' => gettext('Intrusion Detection'),
@@ -65,7 +65,7 @@ function suricata_xmlrpc_sync()
 
     $result[] = array(
         'description' => gettext('Intrusion Detection'),
-        'section' => 'Muro.IDS',
+        'section' => 'OPNsense.IDS',
         'id' => 'suricata',
         'services' => ["suricata"],
     );

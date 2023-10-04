@@ -36,9 +36,9 @@ openlog("openvpn", LOG_ODELAY, LOG_AUTH);
 $common_name = getenv("common_name");
 $vpnid = getenv("auth_server");
 $config_file = getenv("config_file");
-$server = (new Muro\OpenVPN\OpenVPN())->getInstanceById($vpnid, 'server');
+$server = (new OPNsense\OpenVPN\OpenVPN())->getInstanceById($vpnid, 'server');
 if ($server) {
-    $cso = (new Muro\OpenVPN\OpenVPN())->getOverwrite($vpnid, $common_name);
+    $cso = (new OPNsense\OpenVPN\OpenVPN())->getOverwrite($vpnid, $common_name);
     if (empty($cso)) {
         $cso = array("common_name" => $common_name);
     }

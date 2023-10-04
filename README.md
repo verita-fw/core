@@ -1,7 +1,7 @@
-Muro GUI and system management
+OPNsense GUI and system management
 ==================================
 
-The Muro project invites developers to start contributing to
+The OPNsense project invites developers to start contributing to
 the code base.  For your own purposes or – even better – to join us in
 creating the best open source firewall available.
 
@@ -22,10 +22,10 @@ big bang approach into something new.
 Build tools
 ===========
 
-To create working software like Muro you need the sources and the
-tools to build it.  The build tools for Muro are freely available.
+To create working software like OPNsense you need the sources and the
+tools to build it.  The build tools for OPNsense are freely available.
 
-Notes on how to build Muro can be found in the tools repository:
+Notes on how to build OPNsense can be found in the tools repository:
 
 https://github.com/opnsense/tools
 
@@ -41,12 +41,12 @@ You can learn more about contributing on [CONTRIBUTING.md](./CONTRIBUTING.md).
 License
 =======
 
-Muro is and will always be available under the 2-Clause BSD license:
+OPNsense is and will always be available under the 2-Clause BSD license:
 
 https://opensource.org/licenses/BSD-2-Clause
 
 Every contribution made to the project must be licensed under the
-same conditions in order to keep Muro truly free and accessible
+same conditions in order to keep OPNsense truly free and accessible
 for everybody.
 
 Makefile targets
@@ -113,7 +113,7 @@ For php code you will need to have `phpcs` and `phpcbf` installed.
 You can use the package `php-codesniffer` on Debian/Ubuntu.
 Python code will require `pycodestyle`.
 
-For easier development you may want to use an Muro VM and run:
+For easier development you may want to use an OPNsense VM and run:
 `pkg install os-debug` that will install all the necessary tools.
 
 make sweep

@@ -456,7 +456,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     service_log('.', $verbose);
 
     if ($load_aliases) {
-        configd_run('template reload Muro/Filter');
+        configd_run('template reload OPNsense/Filter');
         configd_run('filter refresh_aliases', true);
     }
 
@@ -588,7 +588,7 @@ function filter_generate_scrubbing(&$FilterIflist)
 function filter_generate_aliases()
 {
     $aliases = "# User Aliases\n";
-    $aliasObject = new \Muro\Firewall\Alias();
+    $aliasObject = new \OPNsense\Firewall\Alias();
     // list of registered aliases for faster is_alias() lookup
     $all_aliases = [];
     foreach ($aliasObject->aliasIterator() as $aliased) {

@@ -14,7 +14,7 @@
             <group>Ignore</group>
         </exclude>
     </groups>
-    <testsuite name="Muro - Testsuite">
+    <testsuite name="OPNsense - Testsuite">
         <directory suffix="Test.php">./app</directory>
     </testsuite>
 </phpunit>

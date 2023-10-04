@@ -1,6 +1,6 @@
 ---
 name: Question
-about: Ask a question about Muro, but before you do, please consider using our forum
+about: Ask a question about OPNsense, but before you do, please consider using our forum
 title: ''
 labels: support
 assignees: ''

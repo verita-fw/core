@@ -80,7 +80,7 @@ class Drive
 
         $this->client->setAuthConfig($service_account);
         $this->client->addScope("https://www.googleapis.com/auth/drive");
-        $this->client->setApplicationName("Muro");
+        $this->client->setApplicationName("OPNsense");
 
         $this->service = new \Google_Service_Drive($this->client);
     }

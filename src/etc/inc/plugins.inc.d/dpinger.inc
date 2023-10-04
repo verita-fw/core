@@ -133,7 +133,7 @@ function dpinger_instances()
 {
     $instances = [];
 
-    $gateways = new \Muro\Routing\Gateways();
+    $gateways = new \OPNsense\Routing\Gateways();
 
     foreach ($gateways->gatewaysIndexedByName(true) as $name => $gateway) {
         if (empty($gateway['monitor'])) {

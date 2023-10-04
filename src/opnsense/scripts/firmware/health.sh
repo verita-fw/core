@@ -26,7 +26,7 @@
 
 LOCKFILE="/tmp/pkg_upgrade.progress"
 MTREE="mtree -e -p /"
-PRODUCT="Muro"
+PRODUCT="OPNsense"
 TEE="/usr/bin/tee -a"
 TMPFILE=/tmp/pkg_check.exclude
 

@@ -45,7 +45,7 @@ if (count($argv) > 2) {
 
 require_once('script/load_phalcon.php');
 
-use Muro\Core\Config;
+use OPNsense\Core\Config;
 
 $config = Config::getInstance()->object();
 

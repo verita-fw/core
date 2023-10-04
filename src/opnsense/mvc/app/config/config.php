@@ -1,10 +1,10 @@
 <?php
 
 /* Autoloader doesn't exist yet */
-include('/usr/local/opnsense/mvc/app/library/Muro/Phalcon/Config/Config.php');
-include('/usr/local/opnsense/mvc/app/library/Muro/Phalcon/Autoload/Loader.php');
+include('/usr/local/opnsense/mvc/app/library/OPNsense/Phalcon/Config/Config.php');
+include('/usr/local/opnsense/mvc/app/library/OPNsense/Phalcon/Autoload/Loader.php');
 
-return new Muro\Phalcon\Config\Config(array(
+return new OPNsense\Phalcon\Config\Config(array(
     'application' => array(
         'controllersDir' => __DIR__ . '/../../app/controllers/',
         'modelsDir'      => __DIR__ . '/../../app/models/',

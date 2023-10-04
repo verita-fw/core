@@ -49,7 +49,7 @@
 ##  $InitString		External initialization string
 ##  $LoginScript	If "yes", look for script login
 ##
-## Muro specific variables:
+## OPNsense specific variables:
 ##	$APN			Access Point (host)Name for 3G connections
 ##	$APNum			Access Point Number, typically "1", might not matter
 ##	$SimPin			SIM card PIN number
@@ -1679,7 +1679,7 @@ AutoLoginTimeout:
 
 #====================================================================================================================
 #
-# Muro additional 3g/4g modems
+# OPNsense additional 3g/4g modems
 #
 #====================================================================================================================
 

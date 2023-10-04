@@ -1678,9 +1678,9 @@ include("head.inc");
 
       // handle dhcp Protocol Timing preselects
       $("#customdhcp :input").change(function() {
-          var custom_map = {'DHCP' : {}, 'Muro' : {}, 'SavedCfg' : {} , 'Clear': {} };
+          var custom_map = {'DHCP' : {}, 'OPNsense' : {}, 'SavedCfg' : {} , 'Clear': {} };
           custom_map['DHCP'] = ["60", "300", "0", "10", "120", "10"];
-          custom_map['Muro'] = ["60", "15", "0", "", "", "1"];
+          custom_map['OPNsense'] = ["60", "15", "0", "", "", "1"];
           custom_map['SavedCfg'] = ["<?=$pconfig['adv_dhcp_pt_timeout'];?>", "<?=$pconfig['adv_dhcp_pt_retry'];?>", "<?=$pconfig['adv_dhcp_pt_select_timeout'];?>", "<?=$pconfig['adv_dhcp_pt_reboot'];?>", "<?=$pconfig['adv_dhcp_pt_backoff_cutoff'];?>", "<?=$pconfig['adv_dhcp_pt_initial_interval'];?>"];
           custom_map['Clear'] = ["", "", "", "", "", ""];
           $("#adv_dhcp_pt_timeout").val(custom_map[$(this).val()][0]);
@@ -2350,7 +2350,7 @@ include("head.inc");
                                 <input name="adv_dhcp_pt_values" type="radio" value="Clear"/><?=gettext("Clear");?>
                               </label>
                               <label class="btn btn-default">
-                                <input name="adv_dhcp_pt_values" type="radio" value="Muro"/><?=gettext("Muro Default");?>
+                                <input name="adv_dhcp_pt_values" type="radio" value="OPNsense"/><?=gettext("OPNsense Default");?>
                               </label>
                               <label class="btn btn-default">
                                 <input name="adv_dhcp_pt_values" type="radio" value="SavedCfg" checked="checked"/><?=gettext("Saved Cfg");?>

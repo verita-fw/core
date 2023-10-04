@@ -643,6 +643,6 @@ function get_authenticator($authcfg = null)
         }
     }
 
-    $authFactory = new Muro\Auth\AuthenticationFactory();
+    $authFactory = new OPNsense\Auth\AuthenticationFactory();
     return $authFactory->get($authName);
 }

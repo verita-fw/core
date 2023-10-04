@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $authName = 'Local Database';
         }
 
-        $authFactory = new Muro\Auth\AuthenticationFactory();
+        $authFactory = new OPNsense\Auth\AuthenticationFactory();
         $authenticator = $authFactory->get($authName);
         if ($authenticator->authenticate($_POST['username'], $_POST['password'])) {
             $savemsg = gettext("User") . ": " . $_POST['username'] . " " . gettext("authenticated successfully.");
-            Muro\Core\Config::getInstance()->forceReload();
+            OPNsense\Core\Config::getInstance()->forceReload();
             $config = parse_config();
             $userindex = index_users();
             $groups = getUserGroups($_POST['username']);

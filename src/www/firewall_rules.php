@@ -869,7 +869,7 @@ $( document ).ready(function() {
                 ):
                   // calculate a hash so we can track these records in the ruleset, new style (mvc) code will
                   // automatically provide us with a uuid, this is a workaround to provide some help with tracking issues.
-                  $rule_hash = Muro\Firewall\Util::calcRuleHash($a_filter_raw[$i]);
+                  $rule_hash = OPNsense\Firewall\Util::calcRuleHash($a_filter_raw[$i]);
                   $intf_count = empty($filterent['interface']) ? '*' : count(explode(',', $filterent['interface']));
 ?>
                   <tr class="rule  <?=isset($filterent['disabled'])?"text-muted":"";?>" data-category="<?=!empty($filterent['category']) ? $filterent['category'] : "";?>">

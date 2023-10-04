@@ -1,6 +1,6 @@
 <?php
 
-$loader = new Muro\Phalcon\Autoload\Loader();
+$loader = new OPNsense\Phalcon\Autoload\Loader();
 
 /**
  * We're a registering a set of directories taken from the configuration file

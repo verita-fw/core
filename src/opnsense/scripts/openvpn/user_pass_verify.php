@@ -92,7 +92,7 @@ function do_auth($common_name, $serverid, $method, $auth_file)
             }
         }
     }
-    $a_server = $serverid !== null ? (new Muro\OpenVPN\OpenVPN())->getInstanceById($serverid, 'server') : null;
+    $a_server = $serverid !== null ? (new OPNsense\OpenVPN\OpenVPN())->getInstanceById($serverid, 'server') : null;
     if ($a_server == null) {
         return "OpenVPN '$serverid' was not found. Denying authentication for user {$username}";
     } elseif (!empty($a_server['strictusercn']) && $username != $common_name) {
@@ -114,14 +114,14 @@ function do_auth($common_name, $serverid, $method, $auth_file)
         putenv("LDAPTLS_REQCERT=never");
     }
     // perform the actual authentication
-    $authFactory = new Muro\Auth\AuthenticationFactory();
+    $authFactory = new OPNsense\Auth\AuthenticationFactory();
     foreach (explode(',', $a_server['authmode']) as $authName) {
         $authenticator = $authFactory->get($authName);
         if ($authenticator) {
             if ($authenticator->authenticate($username, $password)) {
                 // fetch or  create client specif override
                 $common_name = empty($a_server['cso_login_matching']) ? $common_name : $username;
-                $cso = (new Muro\OpenVPN\OpenVPN())->getOverwrite($serverid, $common_name);
+                $cso = (new OPNsense\OpenVPN\OpenVPN())->getOverwrite($serverid, $common_name);
                 if (empty($cso)) {
                     $cso = array("common_name" => $common_name);
                 }

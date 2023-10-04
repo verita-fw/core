@@ -29,7 +29,7 @@
 
 require_once('script/load_phalcon.php');
 
-$crypter = new Muro\Backup\Local();
+$crypter = new OPNsense\Backup\Local();
 
 $config_xml = $argv[1] ?? '';
 if ($config_xml == '') {

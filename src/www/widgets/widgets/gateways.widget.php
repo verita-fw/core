@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit;
 }
 
-$gateways = (new \Muro\Routing\Gateways())->gatewaysIndexedByName();
+$gateways = (new \OPNsense\Routing\Gateways())->gatewaysIndexedByName();
 ?>
 
 <script>

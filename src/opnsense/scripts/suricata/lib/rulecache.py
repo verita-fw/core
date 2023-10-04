@@ -111,7 +111,7 @@ class RuleCache(object):
                             local_change['action'] = configured_policies[policy_match]['__target_action__']
                         rule_updates[rule['metadata']['sid']] = local_change
 
-        # parse Muro rule config (XXX: migrate to policy)
+        # parse OPNsense rule config (XXX: migrate to policy)
         rule_config_fn = ('%s../rules.config' % rule_source_directory)
         if os.path.exists(rule_config_fn):
             cnf = ConfigParser()
