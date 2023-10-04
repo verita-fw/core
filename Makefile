@@ -33,9 +33,9 @@ CORE_NICKNAME?=	Not Yet
 CORE_NAME?=	opnsense-devel
 CORE_TYPE?=	development
 
-CORE_ABI?=	21.1
-CORE_PHP?=	73
-CORE_PYTHON?=	37
+CORE_ABI?=	23.7
+CORE_PHP?=	82
+CORE_PYTHON?=	39
 
 _CORE_NEXT=	${CORE_ABI:C/\./ /}
 .if ${_CORE_NEXT:[2]} == 7
