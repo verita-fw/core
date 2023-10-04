@@ -25,7 +25,7 @@
 
 CORE_ABI?=	23.7
 CORE_MESSAGE?=	Beep! Beep!
-CORE_NAME?=	muro
+CORE_NAME?=	opnsense-devel
 # adjust src/root/boot/lua/logo-hourglass.lua.in accordingly:
 CORE_NICKNAME?=	Restless Roadrunner
-CORE_TYPE?=	community
+CORE_TYPE?=	development
