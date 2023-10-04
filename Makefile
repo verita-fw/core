@@ -30,12 +30,12 @@ all:
 
 CORE_MESSAGE?=	Carry on my wayward son
 CORE_NICKNAME?=	Not Yet
-CORE_NAME?=	muro-devel
+CORE_NAME?=	opnsense-devel
 CORE_TYPE?=	development
 
 CORE_ABI?=	23.7
-CORE_PHP?=	73
-CORE_PYTHON?=	37
+CORE_PHP?=	82
+CORE_PYTHON?=	39
 
 _CORE_NEXT=	${CORE_ABI:C/\./ /}
 .if ${_CORE_NEXT:[2]} == 7
@@ -103,7 +103,7 @@ CORE_PRODUCT?=		Muro
 CORE_WWW?=		https://veritawall.com/
 
 CORE_COPYRIGHT_HOLDER?=	Veritawall Technologies
-CORE_COPYRIGHT_WWW?=	https://www.veritawall.com
+CORE_COPYRIGHT_WWW?=	https://www.veritawall.com/
 CORE_COPYRIGHT_YEARS?=	2023-2024
 
 CORE_DEPENDS_amd64?=	beep \
@@ -451,7 +451,7 @@ mfc: ensure-stable clean-mfcdir
 	@mv ${MFCDIR}/$$(basename ${MFC}) ${MFC}
 	@git add -f .
 	@if ! git diff --quiet HEAD; then \
-		git commit -m "${MFC}: sync with master"; \
+		git commit -m "${MFC}: sync with main"; \
 	fi
 .else
 	@git checkout stable/${CORE_ABI}
@@ -459,19 +459,19 @@ mfc: ensure-stable clean-mfcdir
 		git cherry-pick --abort; \
 	fi
 .endif
-	@git checkout master
+	@git checkout main
 .endfor
 
 stable:
 	@git checkout stable/${CORE_ABI}
 
-master:
-	@git checkout master
+main:
+	@git checkout main
 
 rebase:
 	@git checkout stable/${CORE_ABI}
 	@git rebase -i
-	@git checkout master
+	@git checkout main
 
 test: want-phpunit7-php${CORE_PHP}
 	@if [ "$$(${PKG} query %n-%v ${CORE_NAME})" != "${CORE_NAME}-${CORE_PKGVERSION}" ]; then \
