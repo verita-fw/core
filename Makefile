@@ -451,7 +451,7 @@ mfc: ensure-stable clean-mfcdir
 	@mv ${MFCDIR}/$$(basename ${MFC}) ${MFC}
 	@git add -f .
 	@if ! git diff --quiet HEAD; then \
-		git commit -m "${MFC}: sync with master"; \
+		git commit -m "${MFC}: sync with main"; \
 	fi
 .else
 	@git checkout stable/${CORE_ABI}
@@ -459,19 +459,19 @@ mfc: ensure-stable clean-mfcdir
 		git cherry-pick --abort; \
 	fi
 .endif
-	@git checkout master
+	@git checkout main
 .endfor
 
 stable:
 	@git checkout stable/${CORE_ABI}
 
-master:
-	@git checkout master
+main:
+	@git checkout main
 
 rebase:
 	@git checkout stable/${CORE_ABI}
 	@git rebase -i
-	@git checkout master
+	@git checkout main
 
 test: want-phpunit7-php${CORE_PHP}
 	@if [ "$$(${PKG} query %n-%v ${CORE_NAME})" != "${CORE_NAME}-${CORE_PKGVERSION}" ]; then \
